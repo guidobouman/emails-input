@@ -1,5 +1,7 @@
 class EmailsInput {
   container: HTMLElement;
+  listContainer: HTMLSpanElement;
+  inputElement: HTMLInputElement;
 
   constructor(container: HTMLElement) {
     if(!container) {
@@ -11,5 +13,18 @@ class EmailsInput {
     }
 
     this.container = container;
+
+    this.setup();
+  }
+
+  setup() {
+    this.scaffoldStructure();
+  }
+
+  scaffoldStructure() {
+    this.listContainer = document.createElement('span');
+    this.inputElement = document.createElement('input');
+
+    this.container.append(this.listContainer, this.inputElement);
   }
 }
