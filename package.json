@@ -2,7 +2,7 @@
   "name": "emails-input",
   "version": "1.0.0",
   "description": "A styleable, helpful e-mail input.",
-  "main": "index.js",
+  "main": "dist/emails-input.js",
   "scripts": {
     "start": "tsc --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
