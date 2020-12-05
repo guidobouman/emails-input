@@ -7,3 +7,5 @@ Start the watcher at
 ```sh
 npm start
 ```
+
+Open demo.html in your favorite browser
