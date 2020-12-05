@@ -4,6 +4,7 @@
   "description": "A styleable, helpful e-mail input.",
   "main": "index.js",
   "scripts": {
+    "start": "tsc --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/guidobouman/emails-input/issues"
   },
-  "homepage": "https://github.com/guidobouman/emails-input#readme"
+  "homepage": "https://github.com/guidobouman/emails-input#readme",
+  "devDependencies": {
+    "typescript": "^4.1.2"
+  }
 }
