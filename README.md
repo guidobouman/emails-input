@@ -3,7 +3,7 @@ A styleable, helpful e-mail input.
 
 ## Installation
 
-In the most basic setup, EmailsInput expects a container element where it can render.
+When included, the script mounts a class-like function on the global scope, under the name `EmailsInput`. In the most basic setup, Emails Input expects a container element where it can render.
 
 ```html
 <div id="emails-input"></div>
@@ -11,18 +11,18 @@ In the most basic setup, EmailsInput expects a container element where it can re
 <script src="emails-input.js"></script>
 <script>
   var inputContainerNode = document.querySelector('#emails-input');
-  var emailsInput = EmailsInput(inputContainerNode);
+  var emailsInput = new EmailsInput(inputContainerNode);
 </script>
 ```
 
 ## API
 
-EmailsInput has a couple of public methods to interact with the library.
+Emails Input has a couple of public methods to interact with the library. These become available on the instance that is returned when the library has been instantiated through the `new EmailsInput(...);` syntax.
 
 ### addEntry
 
 ```ts
-emailsInputInstance.addEntry(entryString: string = this.inputElement.value): HTMLElement
+function addEntry(entryString: string = this.inputElement.value): HTMLElement
 ```
 
 Manually add an entry. It takes the current input element value by default. Can be overridden to add a custom entry. Retruns the element that holds the entry. This element is the reference used by the `deleteEntry` method.
@@ -30,7 +30,7 @@ Manually add an entry. It takes the current input element value by default. Can 
 ### deleteEntry
 
 ```ts
-emailsInputInstance.deleteEntry(element: Node): boolean
+function deleteEntry(element: Node): boolean
 ```
 
 Manually delete an entry. It takes the active element that holds the entry, provided by `addEntry`. It returns a boolean, indicating wheter or not the operation was successful.
@@ -38,12 +38,12 @@ Manually delete an entry. It takes the active element that holds the entry, prov
 ### getEntries
 
 ```ts
-emailsInputInstance.getEntries(includeInvalidEntries: boolean = false): Entry[]
+function getEntries(includeInvalidEntries: boolean = false): Entry[]
 ```
 
 Get a list of all entries currently present. Accepts a boolean to also include the invalid entries in the returned result. Returns an array with entries, which can be zero-length.
 
-The type for eacht entry is the following:
+The type for each entry is the following:
 
 ```ts
 type Entry = {
