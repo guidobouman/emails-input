@@ -42,12 +42,10 @@ class EmailsInput {
     this.inputElement.setAttribute('placeholder', this.placeholderText);
 
     label.append(this.listContainer, this.inputElement);
-
     this.container.append(label);
   }
 
   bindEventListeners() {
-    // this.inputElement.addEventListener('keydown', this.processInput.bind(this));
     this.inputElement.addEventListener('input', this.processInput.bind(this));
     this.inputElement.addEventListener('keydown', this.processKeydown.bind(this));
     this.inputElement.addEventListener('blur', this.processBlur.bind(this));
@@ -55,10 +53,13 @@ class EmailsInput {
 
   processInput(event: InputEvent) {
     const input = this.inputElement.value;
+
+    // Only process input when there's a field delimiter
     if(input.indexOf(this.delimiter) == -1) {
       return;
     }
 
+    // Take care of multiple e-mails pasted at once
     const entries = input.split(this.delimiter)
     entries.forEach(this.addEntry.bind(this));
   }
@@ -71,11 +72,12 @@ class EmailsInput {
   }
 
   processBlur(event: FocusEvent) {
+    // TODO: This might be a confusing UX, do we really want this?
     this.addEntry();
   }
 
   addEntry(entryString: string = this.inputElement.value) {
-    const filteredEntryString = entryString.replace(/ /g, '');
+    const filteredEntryString = entryString.trim();
 
     if(filteredEntryString.length == 0) {
       return;
@@ -88,15 +90,17 @@ class EmailsInput {
     element.classList.add('entry');
     element.classList.add(isValidEntry ? 'valid' : 'invalid');
 
-    const entry: Entry = {
+    this.listContainer.append(element);
+    // The space is used as natural spacer, to mimic input behaviour
+    this.listContainer.append(' ');
+
+    // Cleanup input
+    this.inputElement.value = '';
+
+    this.entryList.push({
       string: filteredEntryString,
       isValid: isValidEntry,
       element
-    }
-
-    this.listContainer.append(element);
-    this.entryList.push(entry);
-
-    this.inputElement.value = '';
+    });
   }
 }
