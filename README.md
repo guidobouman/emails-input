@@ -3,7 +3,7 @@ A styleable, helpful e-mail input.
 
 ## Installation
 
-When included, the script mounts a class-like function on the global scope, under the name `EmailsInput`. In the most basic setup, Emails Input expects a container element where it can render.
+When included, the script mounts a class-like function on the global scope, under the name `EmailsInput`. In the most basic setup, `EmailsInput` expects a container element where it can render. It returns an instance of `EmailsInput` that is bound to the provided container.
 
 ```html
 <div id="emails-input"></div>
@@ -17,7 +17,7 @@ When included, the script mounts a class-like function on the global scope, unde
 
 ## Style
 
-The list of classes below is used, so the user can style the rendered HTML.
+The list of classes below is added to the rendered elements, so the user can make Emails Input fit into any app or project.
 
 - `entry-list`: The top level list containing the list of entries and the input field;
 - `entry`: A separate entry, it contains the entry as text and a delete button;
