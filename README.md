@@ -15,6 +15,17 @@ When included, the script mounts a class-like function on the global scope, unde
 </script>
 ```
 
+## Style
+
+The list of classes below is used, so the user can style the rendered HTML.
+
+- `entry-list`: The top level list containing the list of entries and the input field;
+- `entry`: A separate entry, it contains the entry as text and a delete button;
+  - `valid`: Added to the entry when it is deemed valid by the RegEx;
+  - `invalid`: Added to the entry when it is deemed invalid by the RegEx;
+- `entry-delete`: The button element that processes the entry delete action;
+- `entry-input`: The input field that is used to add entries.
+
 ## API
 
 Emails Input has a couple of public methods to interact with the library. These become available on the instance that is returned when the library has been instantiated through the `new EmailsInput(...);` syntax.
