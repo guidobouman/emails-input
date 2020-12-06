@@ -13,6 +13,7 @@ class EmailsInput {
   delimiter: string = ',';
   validityRegex: RegExp = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   placeholderText: string = 'add more people...';
+  deleteNode: string | Node = '&times;';
 
   constructor(container: HTMLElement) {
     if(!container) {
@@ -34,15 +35,13 @@ class EmailsInput {
   }
 
   scaffoldStructure() {
-    const label = document.createElement('label');
     this.listContainer = document.createElement('span');
     this.listContainer.classList.add('entry-list')
     this.inputElement = document.createElement('input');
     this.inputElement.setAttribute('type', 'text');
     this.inputElement.setAttribute('placeholder', this.placeholderText);
 
-    label.append(this.listContainer, this.inputElement);
-    this.container.append(label);
+    this.container.append(this.listContainer, this.inputElement);
   }
 
   bindEventListeners() {
@@ -84,11 +83,7 @@ class EmailsInput {
     }
 
     const isValidEntry = this.validityRegex.test(filteredEntryString);
-
-    const element = document.createElement('span');
-    element.textContent = filteredEntryString;
-    element.classList.add('entry');
-    element.classList.add(isValidEntry ? 'valid' : 'invalid');
+    const element = this.createEntryElement(filteredEntryString, isValidEntry);
 
     this.listContainer.append(element);
     // The space is used as natural spacer, to mimic input behaviour
@@ -102,5 +97,35 @@ class EmailsInput {
       isValid: isValidEntry,
       element
     });
+  }
+
+  deleteEntry(element: Node) {
+    this.entryList = this.entryList.filter(entry => entry.element !== element);
+    this.listContainer.removeChild(element);
+  }
+
+  createEntryElement(content: string, isValid: boolean) {
+    const element = document.createElement('span');
+    element.textContent = content;
+    element.classList.add('entry');
+    element.classList.add(isValid ? 'valid' : 'invalid');
+
+    const deleteElement = document.createElement('button');
+    if(typeof this.deleteNode === 'string') {
+      deleteElement.innerHTML = this.deleteNode;
+    }
+    else {
+      deleteElement.append(this.deleteNode.cloneNode());
+    }
+
+    deleteElement.addEventListener('click', () => {
+      this.deleteEntry(element);
+    })
+
+    // The space is used as natural spacer, to mimic input behaviour
+    element.append(' ');
+    element.append(deleteElement);
+
+    return element;
   }
 }
