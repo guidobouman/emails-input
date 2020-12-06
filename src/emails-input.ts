@@ -36,6 +36,7 @@ class EmailsInput {
     this.inputElement = document.createElement('input');
     this.inputElement.setAttribute('type', 'text');
     this.inputElement.setAttribute('placeholder', this.placeholderText);
+    this.inputElement.classList.add('entry-input');
 
     this.container.append(this.listContainer, this.inputElement);
   }
@@ -114,6 +115,7 @@ class EmailsInput {
       deleteElement.append(this.deleteNode.cloneNode());
     }
 
+    deleteElement.classList.add('entry-delete');
     deleteElement.addEventListener('click', () => {
       this.deleteEntry(element);
     })

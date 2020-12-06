@@ -5,6 +5,7 @@ body {
   font-family: 'Open sans', sans-serif;
   font-size: 14px;
   line-height: 24px;
+  color: #050038;
 }
 
 input, button {
@@ -37,6 +38,46 @@ form h1 {
 
 .form-content:last-of-type {
   padding-bottom: 32px;
+}
+
+.emails-input {
+  background: white;
+  border: 1px solid #C3C2CF;
+  border-radius: 4px;
+  height: 96px;
+  padding: 8px 7px;
+  overflow-y: auto;
+}
+
+.emails-input .entry {
+  display: inline-block;
+}
+
+.emails-input .entry.valid {
+  border-radius: 99px;
+  padding-left: 10px;
+  padding-right: 8px;
+  background: rgba(102, 153, 255, 0.2);
+}
+
+.emails-input .entry.invalid {
+  border-bottom: 1px dashed #D92929;
+  line-height: 23px;
+}
+
+.emails-input .entry-delete {
+  padding-left: 5px;
+}
+
+.emails-input .entry-input,
+.emails-input .entry-delete {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.emails-input .entry-input::placeholder {
+  color: #C3C2CF;
 }
 
 .button-row {
