@@ -5,6 +5,7 @@ var EmailsInput = (function () {
         this.validityRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         this.placeholderText = 'add more people...';
         this.deleteNode = '&times;';
+        this.insertWhitespace = true;
         if (!container) {
             throw new Error('Did you forget to provide a container?');
         }
@@ -56,7 +57,9 @@ var EmailsInput = (function () {
         var isValidEntry = this.validityRegex.test(filteredEntryString);
         var element = this.createEntryElement(filteredEntryString, isValidEntry);
         this.listContainer.insertBefore(element, this.inputElement);
-        this.inputElement.before(' ');
+        if (this.insertWhitespace) {
+            this.inputElement.before(' ');
+        }
         this.inputElement.value = '';
         this.entryList.push({
             string: filteredEntryString,
@@ -85,8 +88,10 @@ var EmailsInput = (function () {
         deleteElement.addEventListener('click', function () {
             _this.deleteEntry(element);
         });
-        element.append(' ');
         element.append(deleteElement);
+        if (this.insertWhitespace) {
+            deleteElement.before(' ');
+        }
         return element;
     };
     return EmailsInput;

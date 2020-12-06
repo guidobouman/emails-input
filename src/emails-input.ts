@@ -14,6 +14,7 @@ class EmailsInput {
   validityRegex: RegExp = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   placeholderText: string = 'add more people...';
   deleteNode: string | Node = '&times;';
+  insertWhitespace: boolean = true;
 
   constructor(container: HTMLElement) {
     if(!container) {
@@ -84,8 +85,11 @@ class EmailsInput {
     const element = this.createEntryElement(filteredEntryString, isValidEntry);
 
     this.listContainer.insertBefore(element, this.inputElement);
-    // The space is used as natural spacer, to mimic input behaviour
-    this.inputElement.before(' ');
+
+    if(this.insertWhitespace) {
+      // The space is used as natural spacer, to mimic inline input behaviour
+      this.inputElement.before(' ');
+    }
 
     // Cleanup input
     this.inputElement.value = '';
@@ -121,9 +125,12 @@ class EmailsInput {
       this.deleteEntry(element);
     })
 
-    // The space is used as natural spacer, to mimic input behaviour
-    element.append(' ');
     element.append(deleteElement);
+
+    if (this.insertWhitespace) {
+      // The space is used as natural spacer, to mimic inline input behaviour
+      deleteElement.before(' ');
+    }
 
     return element;
   }
