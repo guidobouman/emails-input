@@ -4,6 +4,7 @@ class EmailsInput {
   inputElement: HTMLInputElement;
 
   delimiter: string = ',';
+  placeholderText: string = 'Add another person';
 
   constructor(container: HTMLElement) {
     if(!container) {
@@ -25,10 +26,15 @@ class EmailsInput {
   }
 
   scaffoldStructure() {
+    const label = document.createElement('label');
     this.listContainer = document.createElement('span');
     this.inputElement = document.createElement('input');
+    this.inputElement.setAttribute('type', 'text');
+    this.inputElement.setAttribute('placeholder', this.placeholderText);
 
-    this.container.append(this.listContainer, this.inputElement);
+    label.append(this.listContainer, this.inputElement);
+
+    this.container.append(label);
   }
 
   bindEventListeners() {
