@@ -80,9 +80,7 @@
 
       var getEmailsCountButton = document.querySelector('#get-emails-count');
       getEmailsCountButton.addEventListener('click', function() {
-        const validEntries = emailsInput.entryList.filter(function(entry) {
-          return entry.isValid;
-        });
+        const validEntries = emailsInput.getEntries();
 
         alert(validEntries.length);
       });

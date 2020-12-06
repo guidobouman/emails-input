@@ -8,7 +8,7 @@ class EmailsInput {
   private container: HTMLElement;
   private inputElement: HTMLInputElement;
   private listContainer: HTMLSpanElement;
-  public entryList: Array<Entry> = [];
+  private entryList: Entry[] = [];
 
   private delimiter: string = ',';
   private validityRegex: RegExp = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -74,7 +74,7 @@ class EmailsInput {
     this.addEntry();
   }
 
-  public addEntry(entryString: string = this.inputElement.value) {
+  public addEntry(entryString: string = this.inputElement.value): HTMLElement {
     const filteredEntryString = entryString.trim();
 
     if(filteredEntryString.length == 0) {
@@ -99,11 +99,23 @@ class EmailsInput {
       isValid: isValidEntry,
       element
     });
+
+    return element;
   }
 
-  public deleteEntry(element: Node) {
+  public deleteEntry(element: Node): boolean {
+    if(!this.listContainer.contains(element)) {
+      return false;
+    }
+
     this.entryList = this.entryList.filter(entry => entry.element !== element);
     this.listContainer.removeChild(element);
+
+    return true;
+  }
+
+  public getEntries(includeInvalidEntries: boolean = false): Entry[] {
+    return this.entryList.filter(entry => includeInvalidEntries || entry.isValid);
   }
 
   private createEntryElement(content: string, isValid: boolean) {

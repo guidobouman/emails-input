@@ -66,10 +66,19 @@ var EmailsInput = (function () {
             isValid: isValidEntry,
             element: element
         });
+        return element;
     };
     EmailsInput.prototype.deleteEntry = function (element) {
+        if (!this.listContainer.contains(element)) {
+            return false;
+        }
         this.entryList = this.entryList.filter(function (entry) { return entry.element !== element; });
         this.listContainer.removeChild(element);
+        return true;
+    };
+    EmailsInput.prototype.getEntries = function (includeInvalidEntries) {
+        if (includeInvalidEntries === void 0) { includeInvalidEntries = false; }
+        return this.entryList.filter(function (entry) { return includeInvalidEntries || entry.isValid; });
     };
     EmailsInput.prototype.createEntryElement = function (content, isValid) {
         var _this = this;
