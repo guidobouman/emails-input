@@ -70,7 +70,7 @@ type Entry = {
 
 ## Contribution
 
-Start the watcher through npm or yarn.
+The TypeScript watcher is available under the `start` stript.
 ```sh
 npm start
 ```
