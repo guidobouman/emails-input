@@ -38,7 +38,8 @@ class EmailsInput {
     this.inputElement.setAttribute('placeholder', this.placeholderText);
     this.inputElement.classList.add('entry-input');
 
-    this.container.append(this.listContainer, this.inputElement);
+    this.listContainer.append(this.inputElement);
+    this.container.append(this.listContainer);
   }
 
   bindEventListeners() {
@@ -82,9 +83,9 @@ class EmailsInput {
     const isValidEntry = this.validityRegex.test(filteredEntryString);
     const element = this.createEntryElement(filteredEntryString, isValidEntry);
 
-    this.listContainer.append(element);
+    this.listContainer.insertBefore(element, this.inputElement);
     // The space is used as natural spacer, to mimic input behaviour
-    this.listContainer.append(' ');
+    this.inputElement.before(' ');
 
     // Cleanup input
     this.inputElement.value = '';
