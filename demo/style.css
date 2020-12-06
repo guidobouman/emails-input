@@ -1,3 +1,35 @@
 body {
+  margin: 10vmin auto;
+  max-width: 800px;
+  padding: 0 4vmin;
   font-family: sans-serif;
+}
+
+form {
+  border-radius: 8px;
+  background: #F8F8F7;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  overflow: hidden;
+  max-width: 540px;
+  margin: 10vmin auto
+}
+
+form h1 {
+  margin: 0;
+}
+
+.form-content {
+  padding: 24px 50px;
+}
+
+.form-content:first-of-type {
+  padding-top: 32px;
+}
+
+.form-content:last-of-type {
+  padding-bottom: 32px;
+}
+
+.button-row {
+  background: white
 }
