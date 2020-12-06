@@ -61,7 +61,7 @@ var EmailsInput = (function () {
         var element = this.createEntryElement(filteredEntryString, isValidEntry);
         this.listContainer.insertBefore(element, this.inputElement);
         if (this.insertWhitespace) {
-            this.inputElement.before(' ');
+            this.inputElement.insertAdjacentText('beforebegin', ' ');
         }
         var entry = {
             string: filteredEntryString,
@@ -102,7 +102,7 @@ var EmailsInput = (function () {
         });
         element.appendChild(deleteElement);
         if (this.insertWhitespace) {
-            deleteElement.before(' ');
+            deleteElement.insertAdjacentText('beforebegin', ' ');
         }
         return element;
     };

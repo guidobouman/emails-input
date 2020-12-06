@@ -92,7 +92,7 @@ class EmailsInput {
 
     if(this.insertWhitespace) {
       // The space is used as natural spacer, to mimic inline input behaviour
-      this.inputElement.before(' ');
+      this.inputElement.insertAdjacentText('beforebegin', ' ');
     }
 
     const entry = {
@@ -143,7 +143,7 @@ class EmailsInput {
 
     if (this.insertWhitespace) {
       // The space is used as natural spacer, to mimic inline input behaviour
-      deleteElement.before(' ');
+      deleteElement.insertAdjacentText('beforebegin', ' ');
     }
 
     return element;
