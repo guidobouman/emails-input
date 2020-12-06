@@ -26,10 +26,6 @@ class EmailsInput {
 
     this.container = container;
 
-    this.setup();
-  }
-
-  setup() {
     this.scaffoldStructure();
     this.bindEventListeners();
   }
