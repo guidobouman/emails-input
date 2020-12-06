@@ -5,16 +5,16 @@ type Entry = {
 };
 
 class EmailsInput {
-  container: HTMLElement;
-  inputElement: HTMLInputElement;
-  listContainer: HTMLSpanElement;
-  entryList: Array<Entry> = [];
+  private container: HTMLElement;
+  private inputElement: HTMLInputElement;
+  private listContainer: HTMLSpanElement;
+  public entryList: Array<Entry> = [];
 
-  delimiter: string = ',';
-  validityRegex: RegExp = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  placeholderText: string = 'add more people...';
-  deleteNode: string | Node = '&times;';
-  insertWhitespace: boolean = true;
+  private delimiter: string = ',';
+  private validityRegex: RegExp = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  private placeholderText: string = 'add more people...';
+  private deleteNode: string | Node = '&times;';
+  private insertWhitespace: boolean = true;
 
   constructor(container: HTMLElement) {
     if(!container) {
@@ -31,7 +31,7 @@ class EmailsInput {
     this.bindEventListeners();
   }
 
-  scaffoldStructure() {
+  private scaffoldStructure() {
     this.listContainer = document.createElement('span');
     this.listContainer.classList.add('entry-list');
     this.inputElement = document.createElement('input');
@@ -43,13 +43,13 @@ class EmailsInput {
     this.container.append(this.listContainer);
   }
 
-  bindEventListeners() {
+  private bindEventListeners() {
     this.inputElement.addEventListener('input', this.processInput.bind(this));
     this.inputElement.addEventListener('keydown', this.processKeydown.bind(this));
     this.inputElement.addEventListener('blur', this.processBlur.bind(this));
   }
 
-  processInput(event: InputEvent) {
+  private processInput(event: InputEvent) {
     const input = this.inputElement.value;
 
     // Only process input when there's a field delimiter
@@ -62,19 +62,19 @@ class EmailsInput {
     entries.forEach(this.addEntry.bind(this));
   }
 
-  processKeydown(event: KeyboardEvent) {
+  private processKeydown(event: KeyboardEvent) {
     if(event.key === 'Enter') {
       event.preventDefault();
       this.addEntry();
     }
   }
 
-  processBlur(event: FocusEvent) {
+  private processBlur(event: FocusEvent) {
     // TODO: This might be a confusing UX, do we really want this?
     this.addEntry();
   }
 
-  addEntry(entryString: string = this.inputElement.value) {
+  public addEntry(entryString: string = this.inputElement.value) {
     const filteredEntryString = entryString.trim();
 
     if(filteredEntryString.length == 0) {
@@ -101,12 +101,12 @@ class EmailsInput {
     });
   }
 
-  deleteEntry(element: Node) {
+  public deleteEntry(element: Node) {
     this.entryList = this.entryList.filter(entry => entry.element !== element);
     this.listContainer.removeChild(element);
   }
 
-  createEntryElement(content: string, isValid: boolean) {
+  private createEntryElement(content: string, isValid: boolean) {
     const element = document.createElement('span');
     element.textContent = content;
     element.classList.add('entry');
