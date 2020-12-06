@@ -81,5 +81,20 @@ form h1 {
 }
 
 .button-row {
-  background: white
+  background: white;
+}
+
+.button-row .buttons {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -8px;
+}
+
+.button-row .buttons button {
+  margin: 8px;
+  background: #4262FF;
+  color: white;
+  border-radius: 6px;
+  border: none;
+  padding: 8px 16px;
 }
