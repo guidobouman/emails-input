@@ -63,7 +63,8 @@ class EmailsInput {
   }
 
   processKeydown(event: KeyboardEvent) {
-    if(event.key === 'enter') {
+    if(event.key === 'Enter') {
+      event.preventDefault();
       this.addEntry();
     }
   }
