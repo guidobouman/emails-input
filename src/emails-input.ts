@@ -12,7 +12,7 @@ class EmailsInput {
 
   delimiter: string = ',';
   validityRegex: RegExp = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  placeholderText: string = 'Add another person';
+  placeholderText: string = 'add more people...';
 
   constructor(container: HTMLElement) {
     if(!container) {
