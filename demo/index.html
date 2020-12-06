@@ -10,8 +10,29 @@
     <h1>
       Emails Input demo page
     </h1>
+    <p>
+      The emails input is fullystylable and does not take opinions on how to do so. Semantically, it stays as close to a regular input field as possible and uses default DOM elements to provide free accessbility.
+    </p>
 
-    <div id="emails-input"></div>
+    <form>
+      <div class="form-content">
+        <h1>
+          Share <strong>Board name</strong> with others
+        </h1>
+
+        <div id="emails-input"></div>
+      </div>
+
+      <div class="form-content button-row">
+        <button type="button" id="add-email">
+          Add email
+        </button>
+
+        <button type="button" id="get-emails-count">
+          Get emails count
+        </button>
+      </div>
+    </form>
 
     <script src="../dist/emails-input.js"></script>
     <script>
