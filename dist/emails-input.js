@@ -63,12 +63,13 @@ var EmailsInput = (function () {
         if (this.insertWhitespace) {
             this.inputElement.before(' ');
         }
-        this.entryList.push({
+        var entry = {
             string: filteredEntryString,
             isValid: isValidEntry,
             element: element
-        });
-        return element;
+        };
+        this.entryList.push(entry);
+        return entry;
     };
     EmailsInput.prototype.deleteEntry = function (element) {
         if (!this.listContainer.contains(element)) {

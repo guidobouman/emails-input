@@ -78,7 +78,7 @@ class EmailsInput {
     this.inputElement.value = '';
   }
 
-  public addEntry(entryString: string = this.inputElement.value): HTMLElement {
+  public addEntry(entryString: string = this.inputElement.value): Entry {
     const filteredEntryString = entryString.trim();
 
     if(filteredEntryString.length == 0) {
@@ -95,13 +95,14 @@ class EmailsInput {
       this.inputElement.before(' ');
     }
 
-    this.entryList.push({
+    const entry = {
       string: filteredEntryString,
       isValid: isValidEntry,
       element
-    });
+    }
 
-    return element;
+    this.entryList.push(entry);
+    return entry;
   }
 
   public deleteEntry(element: Node): boolean {
