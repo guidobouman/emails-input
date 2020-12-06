@@ -1,9 +1,17 @@
+type Entry = {
+  string: string,
+  isValid: Boolean,
+  element: HTMLSpanElement
+};
+
 class EmailsInput {
   container: HTMLElement;
-  listContainer: HTMLSpanElement;
   inputElement: HTMLInputElement;
+  listContainer: HTMLSpanElement;
+  entryList: Array<Entry> = [];
 
   delimiter: string = ',';
+  validityRegex: RegExp = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   placeholderText: string = 'Add another person';
 
   constructor(container: HTMLElement) {
@@ -50,11 +58,8 @@ class EmailsInput {
       return;
     }
 
-    const entries = input.split(this.delimiter);
-
-    console.log(entries);
-
-    entries.forEach(this.addEntry);
+    const entries = input.split(this.delimiter)
+    entries.forEach(this.addEntry.bind(this));
   }
 
   processKeydown(event: KeyboardEvent) {
@@ -67,7 +72,28 @@ class EmailsInput {
     this.addEntry();
   }
 
-  addEntry(entry: string = this.inputElement.value) {
-    console.log(entry);
+  addEntry(entryString: string = this.inputElement.value) {
+    const filteredEntryString = entryString.replace(/ /g, '');
+
+    if(filteredEntryString.length == 0) {
+      return;
+    }
+
+    const isValidEntry = this.validityRegex.test(filteredEntryString);
+
+    const element = document.createElement('span');
+    element.textContent = filteredEntryString;
+    element.classList.add(isValidEntry ? 'valid' : 'invalid');
+
+    const entry: Entry = {
+      string: filteredEntryString,
+      isValid: isValidEntry,
+      element
+    }
+
+    this.listContainer.append(element);
+    this.entryList.push(entry);
+
+    this.inputElement.value = '';
   }
 }
