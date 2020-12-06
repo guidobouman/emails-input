@@ -32,7 +32,7 @@ class EmailsInput {
 
   scaffoldStructure() {
     this.listContainer = document.createElement('span');
-    this.listContainer.classList.add('entry-list')
+    this.listContainer.classList.add('entry-list');
     this.inputElement = document.createElement('input');
     this.inputElement.setAttribute('type', 'text');
     this.inputElement.setAttribute('placeholder', this.placeholderText);
@@ -55,7 +55,7 @@ class EmailsInput {
     }
 
     // Take care of multiple e-mails pasted at once
-    const entries = input.split(this.delimiter)
+    const entries = input.split(this.delimiter);
     entries.forEach(this.addEntry.bind(this));
   }
 
