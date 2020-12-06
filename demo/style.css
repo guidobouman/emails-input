@@ -48,6 +48,7 @@ form h1 {
 }
 
 .emails-input {
+  box-sizing: border-box;
   background: white;
   border: 1px solid #C3C2CF;
   border-radius: 4px;
