@@ -39,8 +39,8 @@ class EmailsInput {
     this.inputElement.setAttribute('placeholder', this.placeholderText);
     this.inputElement.classList.add('entry-input');
 
-    this.listContainer.append(this.inputElement);
-    this.container.append(this.listContainer);
+    this.listContainer.appendChild(this.inputElement);
+    this.container.appendChild(this.listContainer);
   }
 
   private bindEventListeners() {
@@ -131,7 +131,7 @@ class EmailsInput {
       deleteElement.innerHTML = this.deleteNode;
     }
     else {
-      deleteElement.append(this.deleteNode.cloneNode());
+      deleteElement.appendChild(this.deleteNode.cloneNode());
     }
 
     deleteElement.classList.add('entry-delete');
@@ -139,7 +139,7 @@ class EmailsInput {
       this.deleteEntry(element);
     })
 
-    element.append(deleteElement);
+    element.appendChild(deleteElement);
 
     if (this.insertWhitespace) {
       // The space is used as natural spacer, to mimic inline input behaviour

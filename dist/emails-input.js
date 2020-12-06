@@ -23,8 +23,8 @@ var EmailsInput = (function () {
         this.inputElement.setAttribute('type', 'text');
         this.inputElement.setAttribute('placeholder', this.placeholderText);
         this.inputElement.classList.add('entry-input');
-        this.listContainer.append(this.inputElement);
-        this.container.append(this.listContainer);
+        this.listContainer.appendChild(this.inputElement);
+        this.container.appendChild(this.listContainer);
     };
     EmailsInput.prototype.bindEventListeners = function () {
         this.inputElement.addEventListener('input', this.processInput.bind(this));
@@ -94,13 +94,13 @@ var EmailsInput = (function () {
             deleteElement.innerHTML = this.deleteNode;
         }
         else {
-            deleteElement.append(this.deleteNode.cloneNode());
+            deleteElement.appendChild(this.deleteNode.cloneNode());
         }
         deleteElement.classList.add('entry-delete');
         deleteElement.addEventListener('click', function () {
             _this.deleteEntry(element);
         });
-        element.append(deleteElement);
+        element.appendChild(deleteElement);
         if (this.insertWhitespace) {
             deleteElement.before(' ');
         }
