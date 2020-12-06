@@ -60,18 +60,22 @@ class EmailsInput {
     // Take care of multiple e-mails pasted at once
     const entries = input.split(this.delimiter);
     entries.forEach(this.addEntry.bind(this));
+
+    this.inputElement.value = '';
   }
 
   private processKeydown(event: KeyboardEvent) {
     if(event.key === 'Enter') {
       event.preventDefault();
       this.addEntry();
+      this.inputElement.value = '';
     }
   }
 
   private processBlur(event: FocusEvent) {
     // TODO: This might be a confusing UX, do we really want this?
     this.addEntry();
+    this.inputElement.value = '';
   }
 
   public addEntry(entryString: string = this.inputElement.value): HTMLElement {
@@ -90,9 +94,6 @@ class EmailsInput {
       // The space is used as natural spacer, to mimic inline input behaviour
       this.inputElement.before(' ');
     }
-
-    // Cleanup input
-    this.inputElement.value = '';
 
     this.entryList.push({
       string: filteredEntryString,

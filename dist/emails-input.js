@@ -38,15 +38,18 @@ var EmailsInput = (function () {
         }
         var entries = input.split(this.delimiter);
         entries.forEach(this.addEntry.bind(this));
+        this.inputElement.value = '';
     };
     EmailsInput.prototype.processKeydown = function (event) {
         if (event.key === 'Enter') {
             event.preventDefault();
             this.addEntry();
+            this.inputElement.value = '';
         }
     };
     EmailsInput.prototype.processBlur = function (event) {
         this.addEntry();
+        this.inputElement.value = '';
     };
     EmailsInput.prototype.addEntry = function (entryString) {
         if (entryString === void 0) { entryString = this.inputElement.value; }
@@ -60,7 +63,6 @@ var EmailsInput = (function () {
         if (this.insertWhitespace) {
             this.inputElement.before(' ');
         }
-        this.inputElement.value = '';
         this.entryList.push({
             string: filteredEntryString,
             isValid: isValidEntry,
