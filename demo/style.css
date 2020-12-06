@@ -14,12 +14,15 @@ input, button {
 }
 
 form {
+  max-width: 540px;
+  margin: 5vmin auto
+}
+
+form.miro-style {
   border-radius: 8px;
   background: #F8F8F7;
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
   overflow: hidden;
-  max-width: 540px;
-  margin: 10vmin auto
 }
 
 form h1 {

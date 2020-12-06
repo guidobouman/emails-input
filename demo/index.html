@@ -13,36 +13,62 @@
       Emails Input demo page
     </h1>
     <p>
-      The emails input is fully stylable and does not take opinions on how to do so. Semantically, it stays as close to a regular input field as possible and uses default DOM elements to provide free accessbility.
+      The emails input is fully stylable and does not take opinions on how to do so. Semantically, it stays as close to a regular input field as possible and uses default DOM elements to provide free accessbility. Below are a couple of example forms. This first is styled to match a specific brand: Miro. The other is unstyled.
     </p>
 
-    <form>
-      <div class="form-content">
-        <h1>
-          Share <strong>Board name</strong> with others
-        </h1>
+    <section>
+      <h1>
+        Miro demo
+      </h1>
 
-        <div class="emails-input" id="emails-input"></div>
-      </div>
+      <form class="miro-style">
+        <div class="form-content">
+          <h1>
+            Share <strong>Board name</strong> with others
+          </h1>
 
-      <div class="form-content button-row">
-        <div class="buttons">
-          <button type="button" id="add-email">
-            Add email
-          </button>
-
-          <button type="button" id="get-emails-count">
-            Get emails count
-          </button>
+          <div class="emails-input" id="emails-input"></div>
         </div>
-      </div>
-    </form>
+
+        <div class="form-content button-row">
+          <div class="buttons">
+            <button type="button" id="add-email">
+              Add email
+            </button>
+
+            <button type="button" id="get-emails-count">
+              Get emails count
+            </button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section>
+      <h1>
+        Unstyled demo
+      </h1>
+
+      <form>
+        <div id="unstyled-emails-input"></div>
+      </form>
+    </div>
+    </section>
+
+    <section>
+      <h1>
+        Further reading
+      </h1>
+
+      <p>
+        For more information about implementation & configuration options, check out the documentation at <a href="https://github.com/guidobouman/emails-input">GitHub</a>.
+      </p>
+    </section>
 
     <script src="../dist/emails-input.js"></script>
     <script>
       var inputContainerNode = document.querySelector('#emails-input');
       var emailsInput = new EmailsInput(inputContainerNode);
-
 
       var addEmailButton = document.querySelector('#add-email');
       addEmailButton.addEventListener('click', function() {
@@ -59,7 +85,10 @@
         });
 
         alert(validEntries.length);
-      })
+      });
+
+      var unstyledInputContainerNode = document.querySelector('#unstyled-emails-input');
+      var unstyledEmailsInput = new EmailsInput(unstyledInputContainerNode);
     </script>
   </body>
 </html>
