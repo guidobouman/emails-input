@@ -36,6 +36,7 @@ class EmailsInput {
   scaffoldStructure() {
     const label = document.createElement('label');
     this.listContainer = document.createElement('span');
+    this.listContainer.classList.add('entry-list')
     this.inputElement = document.createElement('input');
     this.inputElement.setAttribute('type', 'text');
     this.inputElement.setAttribute('placeholder', this.placeholderText);
@@ -84,6 +85,7 @@ class EmailsInput {
 
     const element = document.createElement('span');
     element.textContent = filteredEntryString;
+    element.classList.add('entry');
     element.classList.add(isValidEntry ? 'valid' : 'invalid');
 
     const entry: Entry = {
