@@ -2,7 +2,14 @@ body {
   margin: 10vmin auto;
   max-width: 800px;
   padding: 0 4vmin;
-  font-family: sans-serif;
+  font-family: 'Open sans', sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+input, button {
+  font: inherit;
+  font-size: inherit;
 }
 
 form {
@@ -15,7 +22,9 @@ form {
 }
 
 form h1 {
-  margin: 0;
+  margin: 0 0 24px;
+  font-weight: 400;
+  font-size: 20px;
 }
 
 .form-content {
