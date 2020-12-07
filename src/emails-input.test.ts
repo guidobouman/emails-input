@@ -106,3 +106,31 @@ describe('getEntries', () => {
     expect(instance.getEntries(true).length).toBe(1);
   });
 });
+
+describe('deleteEntry', () => {
+  test('should remove entry', () => {
+    const container = document.createElement('div');
+    const instance = new EmailsInput(container);
+
+    const entry = instance.addEntry('test@example.com');
+
+    expect(instance.getEntries().length).toBe(1);
+
+    const result = instance.deleteEntry(entry.element);
+    expect(result).toBe(true);
+
+    expect(instance.getEntries().length).toBe(0);
+  });
+
+  test('should abort on invalid parameters', () => {
+    const container = document.createElement('div');
+    const instance = new EmailsInput(container);
+
+    const result = instance.deleteEntry();
+    expect(result).toBe(false);
+
+    const element = document.createElement('div');
+    const resultWithElement = instance.deleteEntry(element);
+    expect(resultWithElement).toBe(false);
+  });
+});
