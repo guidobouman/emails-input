@@ -72,3 +72,37 @@ describe('addEntry', () => {
     expect(entry.string).toBe('test@example.com');
   });
 });
+
+describe('getEntries', () => {
+  test('should return the right amount of entries', () => {
+    const container = document.createElement('div');
+    const instance = new EmailsInput(container);
+
+    expect(instance.getEntries()).toBeInstanceOf(Array);
+    expect(instance.getEntries().length).toBe(0);
+
+    instance.addEntry('test@example.com');
+
+    expect(instance.getEntries().length).toBe(1);
+
+    instance.addEntry('test@example.com');
+
+    expect(instance.getEntries().length).toBe(2);
+
+    instance.addEntry('test@example.com');
+
+    expect(instance.getEntries().length).toBe(3);
+  });
+
+  test('should return invalid entries when requested', () => {
+    const container = document.createElement('div');
+    const instance = new EmailsInput(container);
+
+    expect(instance.getEntries().length).toBe(0);
+
+    instance.addEntry('invalid.email');
+
+    expect(instance.getEntries().length).toBe(0);
+    expect(instance.getEntries(true).length).toBe(1);
+  });
+});
