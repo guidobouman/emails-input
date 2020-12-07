@@ -46,6 +46,9 @@ describe('addEntry', () => {
     const entry = instance.addEntry('test@example.com');
     expect(entry.isValid).toBe(true);
 
+    expect(entry.element.classList.contains('valid')).toBe(true);
+    expect(entry.element.classList.contains('invalid')).toBe(false);
+
     const entryTwo = instance.addEntry('this-is@valid');
     expect(entryTwo.isValid).toBe(true);
   });
@@ -56,6 +59,9 @@ describe('addEntry', () => {
 
     const entry = instance.addEntry('invalid.email');
     expect(entry.isValid).toBe(false);
+
+    expect(entry.element.classList.contains('valid')).toBe(false);
+    expect(entry.element.classList.contains('invalid')).toBe(true);
 
     const entryTwo = instance.addEntry('@invalid.email');
     expect(entryTwo.isValid).toBe(false);
