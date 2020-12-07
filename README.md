@@ -15,7 +15,7 @@ When included, the script mounts a class-like function on the global scope, unde
 </script>
 ```
 
-The entered (valid) emails wil be rendered as a comma-separated list in a hidden input element. See the config section to control the field name.
+The entered (valid) emails wil be rendered as a comma-separated list in a hidden input element with the name `emails`. See the config section to control the field name.
 
 ## Style
 
