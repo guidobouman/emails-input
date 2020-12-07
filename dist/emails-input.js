@@ -1,11 +1,18 @@
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var EmailsInput = (function () {
-    function EmailsInput(container) {
+    function EmailsInput(container, options) {
+        if (options === void 0) { options = {}; }
         this.entryList = [];
-        this.delimiter = ',';
-        this.validityRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        this.placeholderText = 'add more people...';
-        this.deleteNode = '&times;';
-        this.insertWhitespace = true;
         if (!container) {
             throw new Error('Did you forget to provide a container?');
         }
@@ -13,6 +20,7 @@ var EmailsInput = (function () {
             console.warn('The container does not seem to be empty, are you sure?', container);
         }
         this.container = container;
+        this.config = __assign({ delimiter: ',', validityRegex: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, placeholderText: 'add more people...', deleteNode: '&times;', insertWhitespace: true }, options);
         this.scaffoldStructure();
         this.bindEventListeners();
     }
@@ -21,7 +29,7 @@ var EmailsInput = (function () {
         this.listContainer.classList.add('entry-list');
         this.inputElement = document.createElement('input');
         this.inputElement.setAttribute('type', 'text');
-        this.inputElement.setAttribute('placeholder', this.placeholderText);
+        this.inputElement.setAttribute('placeholder', this.config.placeholderText);
         this.inputElement.classList.add('entry-input');
         this.listContainer.appendChild(this.inputElement);
         this.container.appendChild(this.listContainer);
@@ -33,10 +41,10 @@ var EmailsInput = (function () {
     };
     EmailsInput.prototype.processInput = function (event) {
         var input = this.inputElement.value;
-        if (input.indexOf(this.delimiter) == -1) {
+        if (input.indexOf(this.config.delimiter) == -1) {
             return;
         }
-        var entries = input.split(this.delimiter);
+        var entries = input.split(this.config.delimiter);
         entries.forEach(this.addEntry.bind(this));
         this.inputElement.value = '';
     };
@@ -57,10 +65,10 @@ var EmailsInput = (function () {
         if (filteredEntryString.length == 0) {
             return;
         }
-        var isValidEntry = this.validityRegex.test(filteredEntryString);
+        var isValidEntry = this.config.validityRegex.test(filteredEntryString);
         var element = this.createEntryElement(filteredEntryString, isValidEntry);
         this.listContainer.insertBefore(element, this.inputElement);
-        if (this.insertWhitespace) {
+        if (this.config.insertWhitespace) {
             this.inputElement.insertAdjacentText('beforebegin', ' ');
         }
         var entry = {
@@ -90,18 +98,18 @@ var EmailsInput = (function () {
         element.classList.add('entry');
         element.classList.add(isValid ? 'valid' : 'invalid');
         var deleteElement = document.createElement('button');
-        if (typeof this.deleteNode === 'string') {
-            deleteElement.innerHTML = this.deleteNode;
+        if (typeof this.config.deleteNode === 'string') {
+            deleteElement.innerHTML = this.config.deleteNode;
         }
         else {
-            deleteElement.appendChild(this.deleteNode.cloneNode());
+            deleteElement.appendChild(this.config.deleteNode.cloneNode());
         }
         deleteElement.classList.add('entry-delete');
         deleteElement.addEventListener('click', function () {
             _this.deleteEntry(element);
         });
         element.appendChild(deleteElement);
-        if (this.insertWhitespace) {
+        if (this.config.insertWhitespace) {
             deleteElement.insertAdjacentText('beforebegin', ' ');
         }
         return element;

@@ -4,19 +4,23 @@ type Entry = {
   element: HTMLSpanElement
 };
 
+type ConfigOptions = {
+  delimiter: string,
+  validityRegex: RegExp,
+  placeholderText: string,
+  deleteNode: string | Node,
+  insertWhitespace: boolean
+};
+
 class EmailsInput {
   private container: HTMLElement;
   private inputElement: HTMLInputElement;
   private listContainer: HTMLSpanElement;
   private entryList: Entry[] = [];
 
-  private delimiter: string = ',';
-  private validityRegex: RegExp = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  private placeholderText: string = 'add more people...';
-  private deleteNode: string | Node = '&times;';
-  private insertWhitespace: boolean = true;
+  private config: ConfigOptions;
 
-  constructor(container: HTMLElement) {
+  constructor(container: HTMLElement, options: Partial<ConfigOptions> = {}) {
     if(!container) {
       throw new Error('Did you forget to provide a container?');
     }
@@ -27,6 +31,15 @@ class EmailsInput {
 
     this.container = container;
 
+    this.config = {
+      delimiter: ',',
+      validityRegex: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+      placeholderText: 'add more people...',
+      deleteNode: '&times;',
+      insertWhitespace:  true,
+      ...options
+    };
+
     this.scaffoldStructure();
     this.bindEventListeners();
   }
@@ -36,7 +49,7 @@ class EmailsInput {
     this.listContainer.classList.add('entry-list');
     this.inputElement = document.createElement('input');
     this.inputElement.setAttribute('type', 'text');
-    this.inputElement.setAttribute('placeholder', this.placeholderText);
+    this.inputElement.setAttribute('placeholder', this.config.placeholderText);
     this.inputElement.classList.add('entry-input');
 
     this.listContainer.appendChild(this.inputElement);
@@ -53,12 +66,12 @@ class EmailsInput {
     const input = this.inputElement.value;
 
     // Only process input when there's a field delimiter
-    if(input.indexOf(this.delimiter) == -1) {
+    if(input.indexOf(this.config.delimiter) == -1) {
       return;
     }
 
     // Take care of multiple e-mails pasted at once
-    const entries = input.split(this.delimiter);
+    const entries = input.split(this.config.delimiter);
     entries.forEach(this.addEntry.bind(this));
 
     this.inputElement.value = '';
@@ -85,12 +98,12 @@ class EmailsInput {
       return;
     }
 
-    const isValidEntry = this.validityRegex.test(filteredEntryString);
+    const isValidEntry = this.config.validityRegex.test(filteredEntryString);
     const element = this.createEntryElement(filteredEntryString, isValidEntry);
 
     this.listContainer.insertBefore(element, this.inputElement);
 
-    if(this.insertWhitespace) {
+    if(this.config.insertWhitespace) {
       // The space is used as natural spacer, to mimic inline input behaviour
       this.inputElement.insertAdjacentText('beforebegin', ' ');
     }
@@ -127,11 +140,11 @@ class EmailsInput {
     element.classList.add(isValid ? 'valid' : 'invalid');
 
     const deleteElement = document.createElement('button');
-    if(typeof this.deleteNode === 'string') {
-      deleteElement.innerHTML = this.deleteNode;
+    if(typeof this.config.deleteNode === 'string') {
+      deleteElement.innerHTML = this.config.deleteNode;
     }
     else {
-      deleteElement.appendChild(this.deleteNode.cloneNode());
+      deleteElement.appendChild(this.config.deleteNode.cloneNode());
     }
 
     deleteElement.classList.add('entry-delete');
@@ -141,7 +154,7 @@ class EmailsInput {
 
     element.appendChild(deleteElement);
 
-    if (this.insertWhitespace) {
+    if (this.config.insertWhitespace) {
       // The space is used as natural spacer, to mimic inline input behaviour
       deleteElement.insertAdjacentText('beforebegin', ' ');
     }

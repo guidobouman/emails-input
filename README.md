@@ -26,6 +26,38 @@ The list of classes below is added to the rendered elements, so the user can mak
 - `entry-delete`: The button element that processes the entry delete action;
 - `entry-input`: The input field that is used to add entries.
 
+## Config
+
+`EmailsInput` accepts an options object with the type `Partial<ConfigOptions>` as its second parmeter.
+
+The definition for the ConfigOptions type:
+```ts
+type ConfigOptions = {
+  delimiter: string, // delimiter between email inputs
+  validityRegex: RegExp, // RegExp to check if an email is valid
+  placeholderText: string, // text present in the input field
+  deleteNode: string | Node, // node used in the delete button for each entry
+  insertWhitespace: boolean // insert whitespace to comply with default input style
+};
+```
+
+Its defaults are:
+```ts
+var defaultConfig: ConfigOptions = {
+  delimiter: ',',
+  validityRegex: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+  placeholderText: 'add more people...',
+  deleteNode: '&times;',
+  insertWhitespace:  true
+}
+```
+
+Usage:
+```js
+var customConfig = { ... };
+var emailsInput = new EmailsInput(inputContainerNode, customConfig);
+```
+
 ## API
 
 Emails Input has a couple of public methods to interact with the library. These become available on the instance that is returned when the library has been instantiated through the `new EmailsInput(...);` syntax.
