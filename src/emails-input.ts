@@ -149,3 +149,8 @@ class EmailsInput {
     return element;
   }
 }
+
+// Manually export to support testing through import
+if(typeof exports === "object") {
+  exports.EmailsInput = EmailsInput;
+}

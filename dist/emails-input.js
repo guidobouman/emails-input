@@ -108,4 +108,7 @@ var EmailsInput = (function () {
     };
     return EmailsInput;
 }());
+if (typeof exports === "object") {
+    exports.EmailsInput = EmailsInput;
+}
 //# sourceMappingURL=emails-input.js.map
