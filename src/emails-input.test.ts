@@ -9,6 +9,7 @@ describe('class constructor', () => {
     const instance = new EmailsInput(container);
 
     expect(instance).toBeInstanceOf(EmailsInput);
+    expect(container.hasChildNodes()).toBe(true);
   });
 
   test('should break on missing container', () => {
