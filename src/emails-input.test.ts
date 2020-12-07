@@ -1,5 +1,6 @@
 import { expect } from '@jest/globals';
 
+//@ts-ignore
 import { EmailsInput } from '../dist/emails-input';
 
 describe('class constructor', () => {
