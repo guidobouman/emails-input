@@ -30,6 +30,20 @@ describe('class constructor', () => {
 
     spy.mockRestore();
   });
+
+  test('should be able to instantiate with custom config', () => {
+    const container = document.createElement('div');
+    const config = {
+      placeholderText: 'custom placeholder text',
+      insertWhitespace: false
+    }
+    const instance = new EmailsInput(container, config);
+
+    expect(instance).toBeInstanceOf(EmailsInput);
+
+    expect(instance.config.insertWhitespace).toBe(false);
+    expect(instance.inputElement.placeholder).toBe('custom placeholder text');
+  });
 });
 
 describe('input field', () => {
