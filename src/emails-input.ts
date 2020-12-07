@@ -144,7 +144,7 @@ class EmailsInput {
       deleteElement.innerHTML = this.config.deleteNode;
     }
     else {
-      deleteElement.appendChild(this.config.deleteNode.cloneNode());
+      deleteElement.appendChild(this.config.deleteNode.cloneNode(true));
     }
 
     deleteElement.classList.add('entry-delete');

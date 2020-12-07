@@ -86,7 +86,14 @@
       });
 
       var unstyledInputContainerNode = document.querySelector('#unstyled-emails-input');
-      var unstyledEmailsInput = new EmailsInput(unstyledInputContainerNode);
+      var deleteNode = document.createElement('span');
+      deleteNode.innerHTML = '&cross;';
+      var unstyledConfig = {
+        placeholderText: 'add email...',
+        deleteNode: deleteNode
+      };
+
+      var unstyledEmailsInput = new EmailsInput(unstyledInputContainerNode, unstyledConfig);
     </script>
   </body>
 </html>
