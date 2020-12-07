@@ -14,3 +14,17 @@ test('should break on missing container', () => {
     new EmailsInput();
   }).toThrowError("Did you forget to provide a container?");
 });
+
+
+test('should warn on non-empty container', () => {
+  const spy = jest.spyOn(global.console, 'warn').mockImplementation(() => {});
+
+  const container = document.createElement('div');
+  container.textContent = "not empty";
+
+  expect(spy).not.toHaveBeenCalled();
+  new EmailsInput(container);
+  expect(spy).toHaveBeenCalled();
+
+  spy.mockRestore();
+});
