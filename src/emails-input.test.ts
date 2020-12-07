@@ -32,6 +32,83 @@ describe('class constructor', () => {
   });
 });
 
+describe('input field', () => {
+  test('should add entry on comma', () => {
+    const container = document.createElement('div');
+    const instance = new EmailsInput(container);
+
+    const input = instance.inputElement;
+    const exampleMail = 'test@example.com';
+
+    expect(instance.getEntries().length).toBe(0);
+
+    input.value = exampleMail;
+    input.dispatchEvent(new InputEvent('input'));
+
+    expect(input.value).toBe(exampleMail);
+    expect(instance.entryList.length).toBe(0);
+
+    input.value = exampleMail + ',';
+    input.dispatchEvent(new InputEvent('input'));
+
+    expect(input.value).toBe('');
+    expect(instance.entryList.length).toBe(1);
+
+    input.value = 'invalid,';
+    input.dispatchEvent(new InputEvent('input'));
+
+    expect(input.value).toBe('');
+    expect(instance.entryList.length).toBe(2);
+  });
+
+  test('should split multiple entries', () => {
+    const container = document.createElement('div');
+    const instance = new EmailsInput(container);
+
+    const input = instance.inputElement;
+
+    expect(instance.entryList.length).toBe(0);
+
+    input.value = 'one, two, three';
+    input.dispatchEvent(new InputEvent('input'));
+
+    expect(input.value).toBe('');
+    expect(instance.entryList.length).toBe(3);
+  });
+
+  test('should add entry on enter', () => {
+    const container = document.createElement('div');
+    const instance = new EmailsInput(container);
+
+    const input = instance.inputElement;
+
+    expect(instance.getEntries().length).toBe(0);
+
+    input.value = 'test@example.com';
+    input.dispatchEvent(new KeyboardEvent('keydown', {
+      key: 'Enter'
+    }));
+
+    expect(input.value).toBe('');
+    expect(instance.entryList.length).toBe(1);
+  });
+
+  test('should add entry on blur', () => {
+    const container = document.createElement('div');
+    const instance = new EmailsInput(container);
+
+    const input = instance.inputElement;
+
+    expect(instance.getEntries().length).toBe(0);
+
+    input.value = 'test@example.com';
+    input.dispatchEvent(new FocusEvent('blur'));
+
+    expect(input.value).toBe('');
+    expect(instance.entryList.length).toBe(1);
+  });
+});
+
 describe('addEntry', () => {
   test('should be able to add entry', () => {
     const container = document.createElement('div');
