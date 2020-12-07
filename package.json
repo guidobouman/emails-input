@@ -7,7 +7,7 @@
   "scripts": {
     "start": "tsc --watch",
     "test": "jest --coverage",
-    "test:watch": "jest --coverage --watch"
+    "test:watch": "jest --watch"
   },
   "repository": {
     "type": "git",

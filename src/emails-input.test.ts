@@ -233,3 +233,28 @@ describe('deleteEntry', () => {
     expect(resultWithElement).toBe(false);
   });
 });
+
+describe('output field', () => {
+  test('should populate on addEntry', () => {
+    const container = document.createElement('div');
+    const instance = new EmailsInput(container);
+
+    instance.addEntry('test@example.com');
+    expect(instance.outputElement.value).toBe('test@example.com');
+
+    instance.addEntry('test@example.com');
+    expect(instance.outputElement.value).toBe('test@example.com,test@example.com');
+  });
+
+  test('should populate on deleteEntry', () => {
+    const container = document.createElement('div');
+    const instance = new EmailsInput(container);
+
+    const entry = instance.addEntry('test@example.com');
+    instance.addEntry('test@example.com');
+    expect(instance.outputElement.value).toBe('test@example.com,test@example.com');
+
+    instance.deleteEntry(entry.element);
+    expect(instance.outputElement.value).toBe('test@example.com');
+  });
+});

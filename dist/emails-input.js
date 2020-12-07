@@ -20,7 +20,7 @@ var EmailsInput = (function () {
             console.warn('The container does not seem to be empty, are you sure?', container);
         }
         this.container = container;
-        this.config = __assign({ delimiter: ',', validityRegex: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, placeholderText: 'add more people...', deleteNode: '&times;', insertWhitespace: true }, options);
+        this.config = __assign({ inputName: 'emails', delimiter: ',', validityRegex: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, placeholderText: 'add more people...', deleteNode: '&times;', insertWhitespace: true }, options);
         this.scaffoldStructure();
         this.bindEventListeners();
     }
@@ -31,8 +31,12 @@ var EmailsInput = (function () {
         this.inputElement.setAttribute('type', 'text');
         this.inputElement.setAttribute('placeholder', this.config.placeholderText);
         this.inputElement.classList.add('entry-input');
+        this.outputElement = document.createElement('input');
+        this.outputElement.setAttribute('type', 'hidden');
+        this.outputElement.setAttribute('name', this.config.inputName);
         this.listContainer.appendChild(this.inputElement);
         this.container.appendChild(this.listContainer);
+        this.container.appendChild(this.outputElement);
     };
     EmailsInput.prototype.bindEventListeners = function () {
         this.inputElement.addEventListener('input', this.processInput.bind(this));
@@ -77,6 +81,7 @@ var EmailsInput = (function () {
             element: element
         };
         this.entryList.push(entry);
+        this.updateOutput();
         return entry;
     };
     EmailsInput.prototype.deleteEntry = function (element) {
@@ -85,6 +90,7 @@ var EmailsInput = (function () {
         }
         this.entryList = this.entryList.filter(function (entry) { return entry.element !== element; });
         this.listContainer.removeChild(element);
+        this.updateOutput();
         return true;
     };
     EmailsInput.prototype.getEntries = function (includeInvalidEntries) {
@@ -113,6 +119,12 @@ var EmailsInput = (function () {
             deleteElement.insertAdjacentText('beforebegin', ' ');
         }
         return element;
+    };
+    EmailsInput.prototype.updateOutput = function () {
+        var outputString = this.getEntries().reduce(function (accumulator, entry) {
+            return accumulator.length > 0 ? accumulator + ',' + entry.string : entry.string;
+        }, '');
+        this.outputElement.value = outputString;
     };
     return EmailsInput;
 }());

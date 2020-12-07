@@ -5,6 +5,7 @@ type Entry = {
 };
 
 type ConfigOptions = {
+  inputName: string,
   delimiter: string,
   validityRegex: RegExp,
   placeholderText: string,
@@ -17,6 +18,7 @@ class EmailsInput {
   private inputElement: HTMLInputElement;
   private listContainer: HTMLSpanElement;
   private entryList: Entry[] = [];
+  private outputElement: HTMLInputElement;
 
   private config: ConfigOptions;
 
@@ -32,6 +34,7 @@ class EmailsInput {
     this.container = container;
 
     this.config = {
+      inputName: 'emails',
       delimiter: ',',
       validityRegex: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
       placeholderText: 'add more people...',
@@ -52,8 +55,13 @@ class EmailsInput {
     this.inputElement.setAttribute('placeholder', this.config.placeholderText);
     this.inputElement.classList.add('entry-input');
 
+    this.outputElement = document.createElement('input');
+    this.outputElement.setAttribute('type', 'hidden');
+    this.outputElement.setAttribute('name', this.config.inputName);
+
     this.listContainer.appendChild(this.inputElement);
     this.container.appendChild(this.listContainer);
+    this.container.appendChild(this.outputElement);
   }
 
   private bindEventListeners() {
@@ -113,8 +121,10 @@ class EmailsInput {
       isValid: isValidEntry,
       element
     }
-
     this.entryList.push(entry);
+
+    this.updateOutput();
+
     return entry;
   }
 
@@ -125,6 +135,8 @@ class EmailsInput {
 
     this.entryList = this.entryList.filter(entry => entry.element !== element);
     this.listContainer.removeChild(element);
+
+    this.updateOutput();
 
     return true;
   }
@@ -150,7 +162,7 @@ class EmailsInput {
     deleteElement.classList.add('entry-delete');
     deleteElement.addEventListener('click', () => {
       this.deleteEntry(element);
-    })
+    });
 
     element.appendChild(deleteElement);
 
@@ -160,6 +172,14 @@ class EmailsInput {
     }
 
     return element;
+  }
+
+  private updateOutput() {
+    const outputString = this.getEntries().reduce((accumulator, entry) => {
+      return accumulator.length > 0 ? accumulator + ',' + entry.string : entry.string;
+    }, '');
+
+    this.outputElement.value = outputString;
   }
 }
 

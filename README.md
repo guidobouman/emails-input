@@ -15,6 +15,8 @@ When included, the script mounts a class-like function on the global scope, unde
 </script>
 ```
 
+The entered (valid) emails wil be rendered as a comma-separated list in a hidden input element. See the config section to control the field name.
+
 ## Style
 
 The list of classes below is added to the rendered elements, so the user can make Emails Input fit into any app or project.
@@ -33,9 +35,10 @@ The list of classes below is added to the rendered elements, so the user can mak
 The definition for the ConfigOptions type:
 ```ts
 type ConfigOptions = {
+  inputName: string // name of the form input field that will carry the entered e-mails
   delimiter: string, // delimiter between email inputs
   validityRegex: RegExp, // RegExp to check if an email is valid
-  placeholderText: string, // text present in the input field
+  placeholderText: string, // text present in the emails input field
   deleteNode: string | Node, // node used in the delete button for each entry
   insertWhitespace: boolean // insert whitespace to comply with default input style
 };
@@ -44,6 +47,7 @@ type ConfigOptions = {
 Its defaults are:
 ```ts
 var defaultConfig: ConfigOptions = {
+  inputName: 'emails',
   delimiter: ',',
   validityRegex: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
   placeholderText: 'add more people...',
