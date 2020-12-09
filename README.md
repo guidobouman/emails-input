@@ -116,11 +116,11 @@ Open index.html in your favorite browser, and start developing.
 To check if everything still works as intended, there's around 90% test coverage. Run the test suite & converage check with the `test` script.
 
 ```sh
-npm test
+npm run test
 ```
 
 To start the test suite in watch mode, run the `test:watch` script.
 
 ```sh
-npm test:watch
+npm run test:watch
 ```
