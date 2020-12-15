@@ -72,7 +72,7 @@ Emails Input has a couple of public methods to interact with the library. These 
 function addEntry(entryString: string = this.inputElement.value): Entry
 ```
 
-Manually add an entry. It takes the current input element value by default. Can be overridden to add a custom entry. Retruns an Entry object.
+Manually add an entry. It takes the current input element value by default. Can be overridden to add a custom entry. Returns an Entry object.
 
 Definition of the Entry type:
 ```ts
@@ -84,7 +84,7 @@ type Entry = {
 ```
 
 Description of each Entry property:
-- `string`: the sanitized string representation of the entry
+- `string`: the sanitized string representation of the entry;
 - `isValid`: the state wheter or not the entry is valid, according to the RegEx;
 - `element`: reference to the DOM element that holds the entry, used by `deleteEntry`.
 
@@ -106,14 +106,14 @@ Get a list of all entries currently present. Accepts a boolean to also include t
 
 ## Contribution
 
-The TypeScript watcher is available under the `start` stript.
+Emails Input is written in TypeScript. The TypeScript watcher is available under the `start` stript.
 ```sh
 npm start
 ```
 
-Open index.html in your favorite browser, and start developing.
+Open `index.html` in your favorite browser, and start developing. Hot reload is not set up right now, PRs welcome.
 
-To check if everything still works as intended, there's around 90% test coverage. Run the test suite & converage check with the `test` script.
+To check if everything still works as intended, there's around 90% test coverage. Run the test suite & coverage check with the `test` script.
 
 ```sh
 npm run test
